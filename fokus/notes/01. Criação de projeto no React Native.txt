@@ -1,0 +1,6 @@
+EXPO
+A escolha de usar o Expo pode ser justificada pela sua capacidade de simplificar o 
+processo de configuração e desenvolvimento, oferecendo um ambiente integrado que 
+facilita a criação, teste e implantação de aplicativos móveis, especialmente para 
+equipes que desejam um início rápido e eficiente.
+
