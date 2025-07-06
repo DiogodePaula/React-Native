@@ -1,0 +1,109 @@
+npx expo install react-native-svg
+
+npx expo install
+
+O comando npx expo install funciona de maneira semelhante ao npm install, mas foi pensado especificamente para 
+projetos com Expo:
+
+npx expo install nome-da-lib
+
+A grande vantagem desse comando é que ele verifica automaticamente se a versão da biblioteca é compatível com o 
+Expo SDK que você está usando. Isso evita problemas de compatibilidade e dores de cabeça com pacotes que podem 
+não funcionar direito no seu projeto.
+
+O expo install também configura automaticamente o seu projeto, especialmente quando o pacote exige alguma 
+configuração nativa, que o Expo chama de "autolinking".
+3. Qual utilizar?
+
+Então, qual comando escolher?
+
+Sempre que estiver em um projeto React Native com Expo, use npx expo install. Ele facilita a configuração e 
+evita problemas de compatibilidade;
+Se a biblioteca que você precisa não estiver disponível via Expo (ou estiver em fase beta), aí sim o npm 
+install pode ser uma alternativa.
+
+No fim das contas, o Expo foi feito para facilitar a sua vida, então aproveite essas vantagens sempre que possível.
+===================================================================================================================
+# Arquivos SVG no React Native
+
+## O que é SVG e como ele funciona?
+
+**SVG (Scalable Vector Graphics)** é um tipo de imagem baseada em código. 
+
+A grande vantagem do SVG é que ele não perde qualidade, independentemente do tamanho.
+
+Isso acontece porque, ao invés de salvar cada "ponto" da imagem, como nos formatos tradicionais 
+(JPEG ou PNG), o SVG usa **formas geométricas** como linhas e círculos para desenhar a imagem.
+
+### Vantagens do SVG:
+
+- ✅ Perfeito para ícones, logotipos e ilustrações
+
+- ✅ Funciona bem em telas com diferentes tamanhos e resoluções
+
+- ✅ Baseado em código, pode ser facilmente ajustado e personalizado
+
+- ✅ Em muitos casos, ocupa menos espaço
+
+- ✅ Ajuda a deixar sites e aplicativos mais rápidos
+
+---
+
+## Como o navegador renderiza os SVGs?
+
+Os navegadores interpretam arquivos SVG porque eles são escritos em **XML** (um formato de código). 
+
+Esse código descreve como a imagem deve ser desenhada, com informações sobre:
+
+- 🔹 Formas
+
+- 🔹 Cores  
+
+- 🔹 Tamanhos
+
+- 🔹 Posições
+
+Com essas instruções, o navegador converte esse código em uma imagem visível. 
+
+E, como o SVG é baseado em vetores, ele aparece sempre nítido, independente do tamanho da tela.
+
+> **Pergunta:** Entendido como os SVGs funcionam nos navegadores, a dúvida é: como isso é tratado no React Native?
+
+---
+
+## Como o React Native renderiza elementos gráficos?
+
+No React Native, os elementos gráficos são desenhados diretamente usando APIs nativas de cada plataforma:
+
+| Plataforma | API Utilizada |
+|------------|---------------|
+| **iOS** | CoreGraphics e Quartz |
+| **Android** | Skia via API de desenho do sistema |
+
+### ⚠️ O Problema
+
+Essas APIs não oferecem um suporte embutido para SVGs, diferentemente do navegador. 
+
+Cada plataforma tem suas próprias formas de lidar com gráficos vetoriais, mas não há um padrão nativo que o React 
+Native possa usar diretamente para renderizar um SVG como fazemos no HTML.
+
+---
+
+## Por que não podemos usar SVGs diretamente no React Native?
+
+Como React Native não tem um motor de renderização de SVG próprio, precisamos de uma solução que traduza os elementos 
+SVG para algo que as plataformas móveis entendam.
+
+### 🔧 A Solução: react-native-svg
+
+É aí que entra a biblioteca **react-native-svg**. 
+
+Ela funciona como uma **"ponte"** entre:
+
+- Os componentes SVG que usamos no JSX (`<Svg>`, `<Path>`, `<Circle>`, etc.)
+- As APIs nativas do iOS e Android
+
+### Como funciona a conversão:
+
+- **No iOS:** os desenhos são convertidos para CoreGraphics
+- **No Android:** os desenhos são convertidos para Skia
